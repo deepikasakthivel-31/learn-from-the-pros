@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Architecture
+
+- Keep public page composition in TanStack file routes and isolate shared discovery UI, marketplace data/logic, and visual tokens in reusable modules; this preserves generated routing and keeps preview content replaceable as connected services are added.
