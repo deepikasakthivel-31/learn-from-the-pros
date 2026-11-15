@@ -38,7 +38,7 @@ export type CopyKey =
   | "howItWorksTitle"
   | "stepOne"
   | "stepTwo"
-  | "stepThree";
+  | "stepThree"
   | "heroKicker"
   | "heroTitle"
   | "heroDescription"

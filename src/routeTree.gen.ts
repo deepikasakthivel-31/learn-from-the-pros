@@ -9,27 +9,87 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as BrowseRouteImport } from './routes/browse'
+import { Route as MentorsMentorRouteImport } from './routes/mentors.$mentor'
 
-export interface FileRoutesByFullPath {}
-export interface FileRoutesByTo {}
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrowseRoute = BrowseRouteImport.update({
+  id: '/browse',
+  path: '/browse',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentorsMentorRoute = MentorsMentorRouteImport.update({
+  id: '/mentors/$mentor',
+  path: '/mentors/$mentor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/browse': typeof BrowseRoute
+  '/mentors/$mentor': typeof MentorsMentorRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/browse': typeof BrowseRoute
+  '/mentors/$mentor': typeof MentorsMentorRoute
+}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/browse': typeof BrowseRoute
+  '/mentors/$mentor': typeof MentorsMentorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths: '/' | '/browse' | '/mentors/$mentor'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to: '/' | '/browse' | '/mentors/$mentor'
+  id: '__root__' | '/' | '/browse' | '/mentors/$mentor'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  BrowseRoute: typeof BrowseRoute
+  MentorsMentorRoute: typeof MentorsMentorRoute
 }
 
-const rootRouteChildren: RootRouteChildren = {}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/browse': {
+      id: '/browse'
+      path: '/browse'
+      fullPath: '/browse'
+      preLoaderRoute: typeof BrowseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentors/$mentor': {
+      id: '/mentors/$mentor'
+      path: '/mentors/$mentor'
+      fullPath: '/mentors/$mentor'
+      preLoaderRoute: typeof MentorsMentorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  BrowseRoute: BrowseRoute,
+  MentorsMentorRoute: MentorsMentorRoute,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()

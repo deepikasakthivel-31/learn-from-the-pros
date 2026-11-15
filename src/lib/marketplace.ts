@@ -11,6 +11,8 @@ export const supportedLanguages = [
   "Kannada",
 ] as const;
 
+export const FREE_MESSAGE_LIMIT = 5;
+
 export type SupportedLanguage = (typeof supportedLanguages)[number];
 
 export type Professional = {
@@ -136,10 +138,12 @@ export function filterProfessionals({
   query = "",
   skill = "All skills",
   language = "All languages",
+  experience = "Any experience",
 }: {
   query?: string;
   skill?: string;
   language?: string;
+  experience?: string;
 }) {
   const normalizedQuery = query.trim().toLowerCase();
 
@@ -153,8 +157,9 @@ export function filterProfessionals({
     const matchesSkill = skill === "All skills" || professional.profession === skill;
     const matchesLanguage =
       language === "All languages" || professional.languages.includes(language as SupportedLanguage);
+    const minimumExperience = experience === "5+ years" ? 5 : experience === "8+ years" ? 8 : 0;
 
-    return matchesQuery && matchesSkill && matchesLanguage;
+    return matchesQuery && matchesSkill && matchesLanguage && professional.experience >= minimumExperience;
   });
 }
 
