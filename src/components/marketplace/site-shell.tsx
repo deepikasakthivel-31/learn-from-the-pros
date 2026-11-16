@@ -38,7 +38,7 @@ function SiteHeader() {
           <span>skills<span className="brand-word-accent">exchange</span></span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <Link to="/browse" search={{ q: "" }}>{copy("browseMentors")}</Link>
+          <Link to="/browse" search={{ q: "", skill: "All skills", language: "All languages", experience: "Any experience" }}>{copy("browseMentors")}</Link>
           <Link to="/about">About</Link>
           <Link to="/help">Help</Link>
         </nav>
