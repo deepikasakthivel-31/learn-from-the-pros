@@ -10,10 +10,10 @@ import { filterProfessionals } from "@/lib/marketplace";
 
 export const Route = createFileRoute("/browse")({
   validateSearch: (search: Record<string, unknown>) => ({
-    q: typeof search.q === "string" ? search.q : "",
-    skill: typeof search.skill === "string" ? search.skill : "All skills",
-    language: typeof search.language === "string" ? search.language : "All languages",
-    experience: typeof search.experience === "string" ? search.experience : "Any experience",
+    q: typeof search["q"] === "string" ? search["q"] : "",
+    skill: typeof search["skill"] === "string" ? search["skill"] : "All skills",
+    language: typeof search["language"] === "string" ? search["language"] : "All languages",
+    experience: typeof search["experience"] === "string" ? search["experience"] : "Any experience",
   }),
   head: () => ({
     meta: [

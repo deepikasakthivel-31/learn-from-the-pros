@@ -167,11 +167,16 @@
     border-color: var(--color-border);
   }
 
+  html,
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body-family);
+    overflow-x: clip;
   }
+
+  html {
+    scroll-behavior: smooth;
 }
 
 @layer components {
@@ -1892,12 +1897,14 @@
 
   .search-panel,
   .search-panel-compact {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 0;
     padding: 8px;
   }
 
   .search-field {
+    width: 100%;
+    min-width: 0;
     min-height: 59px;
     gap: 8px;
     padding-inline: 7px;
@@ -1921,6 +1928,16 @@
 
   .search-field-copy > span:first-child {
     font-size: 8px;
+  }
+
+  .search-field-copy {
+    min-width: 0;
+  }
+
+  .search-select-field .search-field-copy > button {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .search-query-field input,

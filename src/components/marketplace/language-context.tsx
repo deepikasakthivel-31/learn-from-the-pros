@@ -9,6 +9,14 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 const STORAGE_KEY = "skills-exchange-language";
+const languageCodes: Record<SupportedLanguage, string> = {
+  English: "en",
+  Tamil: "ta",
+  Hindi: "hi",
+  Telugu: "te",
+  Malayalam: "ml",
+  Kannada: "kn",
+};
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<SupportedLanguage>("English");
@@ -22,7 +30,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, language);
-    document.documentElement.lang = language.toLowerCase();
+    document.documentElement.lang = languageCodes[language];
   }, [language]);
 
   const value = useMemo(() => ({ language, setLanguage }), [language]);
