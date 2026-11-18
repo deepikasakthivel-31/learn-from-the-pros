@@ -178,6 +178,7 @@
   html {
     scroll-behavior: smooth;
 }
+}
 
 @layer components {
   a {
